@@ -2,7 +2,7 @@
 
 ## Basic
 
-**abstract::static_obj** 地图上的静态物体，例如树、房子
+**abstract::static_obj** 地图上的静态物体，例如树、房子 ok
 
 ```
 int id;
@@ -13,7 +13,7 @@ std::vector<image*> pic; // image 暂定
 std::map<int, int> contain; // contain[x] = y, x 为 item.id, y 为 该物品掉落的数量
 ```
 
-**abstract::chest**
+**abstract::chest** ok
 
 ```
 std::map<int, int> chest; // 箱子，用法同上
@@ -42,7 +42,7 @@ int max_count;
 
 ## World
 
-**block** 一个方格
+**block** 一个方格 ok
 
 ```
 long x, y; // 坐标
@@ -51,7 +51,7 @@ chunk* location;
 int abundance;
 ```
 
-**chunk0** 一个区块，= 16*16 blocks
+**chunk0** 一个区块，= 16*16 blocks ok
 
 ```
 long x, y;

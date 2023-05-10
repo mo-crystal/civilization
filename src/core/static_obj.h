@@ -6,6 +6,7 @@
 #include "map"
 
 #include "../utils/image.h"
+#include "block.h"
 
 class static_obj {
   int id;

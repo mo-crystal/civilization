@@ -1,5 +1,9 @@
 add_rules("mode.debug", "mode.release")
 
+target("mocvcore")
+  set_kind("static")
+  add_files("src/core/*.cc")
+
 target("mocvserver")
   set_kind("binary")
   add_files("src/core/*.cc")
