@@ -20,7 +20,7 @@ std::map<int, int> chest; // 箱子，用法同上
 int check_size; // 为 0 则不是 chest
 ```
 
-**abstract::creature**
+**abstract::creature** ok
 
 ```
 int id;
@@ -31,7 +31,7 @@ int max_health;
 int now_health;
 ```
 
-**abstract::item** 可拾取物品
+**abstract::item** 可拾取物品 ok
 
 ```
 int id;
