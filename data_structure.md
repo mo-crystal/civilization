@@ -71,7 +71,7 @@ unsigned char r, g, b;
 
 ## Game Obj
 
-**tree: static_obj** 树，可以破坏
+**tree: static_obj** 树，可以破坏 ok
 
 ```
 int max_health;
@@ -97,40 +97,40 @@ int mine_type;
 
 **tree_farm: static_obj** 林场，种树用，可以破坏，是箱子，容量 8 格
 
-**foundation_bp: item**
-
-```
-id: 0
-```
-
-**stone: item**
+**foundation_bp: item** ok
 
 ```
 id: 1
 ```
 
-**wood: item**
+**stone: item**
 
 ```
 id: 2
 ```
 
-**iron: item**
+**wood: item**
 
 ```
 id: 3
 ```
 
-**miner_bp: item**
+**iron: item**
 
 ```
 id: 4
 ```
 
-**tree_farm_bp: item**
+**miner_bp: item**
 
 ```
 id: 5
+```
+
+**tree_farm_bp: item**
+
+```
+id: 6
 ```
 
 ## Player
