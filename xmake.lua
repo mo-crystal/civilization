@@ -3,8 +3,6 @@ add_rules("mode.debug", "mode.release")
 target("mocvcore")
   set_kind("static")
   add_files("src/core/*.cc")
-  add_files("src/core/impl_static_obj/*.cc")
-  add_files("src/core/impl_item/*.cc")
 
 target("mocvserver")
   set_kind("binary")
