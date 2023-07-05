@@ -15,4 +15,5 @@ public:
   ~Game();
   bool Load();
   bool Save();
+  bool AddPlayer(Player* p);
 };
