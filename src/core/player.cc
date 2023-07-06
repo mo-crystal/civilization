@@ -1,9 +1,11 @@
 #include "player.h"
 
-Player::Player(Point _location) : Creature(_location)
+Player::Player(int _id, Point _location) : Creature(_location)
 {
+  this->ID = _id;
 }
 
 Player::~Player()
 {
 }
+
