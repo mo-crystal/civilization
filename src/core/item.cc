@@ -1,6 +1,10 @@
 #include "item.h"
 
-Item::Item(int _ID, std::string _name, int _maxStack, int _nowStack = 1)
+Item::Item(){
+
+}
+
+Item::Item(int _ID, std::string _name, int _maxStack, int _nowStack)
 {
   this->ID = _ID;
   this->name = _name;
