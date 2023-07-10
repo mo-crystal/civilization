@@ -45,68 +45,79 @@
           <bool>true</bool>
         </property>
       </widget>
-      <widget class="QWidget" name="verticalLayoutWidget">
+      <widget class="QLabel" name="button_background">
         <property name="geometry">
           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>100</width>
-            <height>500</height>
+            <x>400</x>
+            <y>340</y>
+            <width>209</width>
+            <height>262</height>
           </rect>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout">
-        <property name="spacing">
-          <number>6</number>
+        <property name="styleSheet">
+          <string notr="true"> background-color: rgb(255, 255, 255,0);</string>
         </property>
-        <property name="sizeConstraint">
-          <enum>QLayout::SetFixedSize</enum>
+        <property name="autoFillBackground">
+          <bool>true</bool>
         </property>
-        <item>
-          <widget class="QPushButton" name="B_start">
-          <property name="autoFillBackground">
-            <bool>true</bool>
-          </property>
-          <property name="styleSheet">
-            <string notr="true"> background-color: rgb(255, 255, 255,0);</string>
-            </property>
-          <property name="icon">
-          <iconset resource="image.qrc">
-            <normaloff>./res/start/start_selected.png</normaloff>./res/start/start_selected.png</iconset>
-          </property>
-          <property name="text">
-            <string/>
-          </property>
-          <property name="iconSize">
-            <size>
-              <width>300</width>
-              <height>200</height>
-            </size>
-          </property>
-          </widget>
-        </item>
-        <item>
-          <widget class="QPushButton" name="B_settings">
-          <property name="autoFillBackground">
-            <bool>true</bool>
-          </property>
-          <property name="text">
-            <string>SETTINGS</string>
-          </property>
-          </widget>
-        </item>
-        <item>
-          <widget class="QPushButton" name="B_quit">
-          <property name="autoFillBackground">
-            <bool>true</bool>
-          </property>
-          <property name="text">
-            <string>QUIT</string>
-          </property>
-          </widget>
-        </item>
-        </layout>
       </widget>
-   
+      <widget class="QPushButton" name="B_start">
+        <property name="geometry">
+          <rect>
+            <x>401</x>
+            <y>350</y>
+            <width>200</width>
+            <height>80</height>
+          </rect>
+        </property>
+        <property name="autoFillBackground">
+          <bool>true</bool>
+        </property>
+        <property name="styleSheet">
+          <string notr="true"> background-color: rgb(255, 255, 255,0);</string>
+        </property>
+        <property name="text">
+          <string/>
+        </property>
+      </widget>
+      <widget class="QPushButton" name="B_set">
+        <property name="geometry">
+          <rect>
+            <x>401</x>
+            <y>431</y>
+            <width>200</width>
+            <height>80</height>
+          </rect>
+        </property>
+        <property name="autoFillBackground">
+          <bool>true</bool>
+        </property>
+        <property name="styleSheet">
+          <string notr="true"> background-color: rgb(255, 255, 255,0);</string>
+        </property>
+        <property name="text">
+          <string/>
+        </property>
+      </widget>
+      <widget class="QPushButton" name="B_quit">
+        <property name="geometry">
+          <rect>
+            <x>401</x>
+            <y>512</y>
+            <width>200</width>
+            <height>80</height>
+          </rect>
+        </property>
+        <property name="autoFillBackground">
+          <bool>true</bool>
+        </property>
+        <property name="styleSheet">
+          <string notr="true"> background-color: rgb(255, 255, 255,0);</string>
+        </property>
+        <property name="text">
+          <string/>
+        </property>
+      </widget>
      </widget>
     <widget class="QWidget" name="page_2"/>
    </widget>

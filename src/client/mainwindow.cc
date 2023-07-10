@@ -11,8 +11,54 @@ MainWindow::MainWindow(QWidget *parent)
   ui->start_movie->setMovie(movie);
   movie->start();
 
-  //按钮配置
-  ui->verticalLayoutWidget->setGeometry((DEFUALT_WIDTH-START_PAGE_BUTTON_WIDTH)/2,DEFUALT_HEIGHT*3/4,START_PAGE_BUTTON_WIDTH,100);
+  //开始界面按钮初始化
+  QPixmap *p_button=new QPixmap("./res/start/button_background.png");
+  ui->button_background->setPixmap(*p_button);
+
+  ui->B_start->setStyleSheet(
+    "QPushButton{"
+      "background-color: rgb(255, 255, 255,0);"
+      "background-image: url(./res/start/start.png);"
+      "background-repeat: no-repeat;"
+      "background-position: center center;"
+    "}"
+    "QPushButton:hover{"
+      "background-color: rgb(255, 255, 255,0);"
+      "background-image: url(./res/start/start_selected.png);"
+      "background-repeat: no-repeat;"
+      "background-position: center center;"
+    "}"
+  );
+
+  ui->B_set->setStyleSheet(
+    "QPushButton{"
+      "background-color: rgb(255, 255, 255,0);"
+      "background-image: url(./res/start/set.png);"
+      "background-repeat: no-repeat;"
+      "background-position: center center;"
+    "}"
+    "QPushButton:hover{"
+      "background-color: rgb(255, 255, 255,0);"
+      "background-image: url(./res/start/set_selected.png);"
+      "background-repeat: no-repeat;"
+      "background-position: center center;"
+    "}"
+  );
+
+    ui->B_quit->setStyleSheet(
+    "QPushButton{"
+      "background-color: rgb(255, 255, 255,0);"
+      "background-image: url(./res/start/quit.png);"
+      "background-repeat: no-repeat;"
+      "background-position: center center;"
+    "}"
+    "QPushButton:hover{"
+      "background-color: rgb(255, 255, 255,0);"
+      "background-image: url(./res/start/quit_selected.png);"
+      "background-repeat: no-repeat;"
+      "background-position: center center;"
+    "}"
+  );
 }
 
 MainWindow::~MainWindow()
