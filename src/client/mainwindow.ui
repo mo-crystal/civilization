@@ -61,6 +61,22 @@
           <bool>true</bool>
         </property>
       </widget>
+      <widget class="QLabel" name="label">
+        <property name="geometry">
+          <rect>
+            <x>850</x>
+            <y>615</y>
+            <width>100</width>
+            <height>20</height>
+          </rect>
+        </property>
+        <property name="styleSheet">
+          <string notr="true">color: rgb(0, 0, 0);font: 500 18pt &quot;m5x7&quot;</string>
+        </property>
+        <property name="text">
+          <string>v0.0.0-alpha</string>
+        </property>
+      </widget>
       <widget class="QPushButton" name="B_start">
         <property name="geometry">
           <rect>
