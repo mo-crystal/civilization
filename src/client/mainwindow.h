@@ -21,8 +21,13 @@ class MainWindow : public QMainWindow {
   explicit MainWindow(QWidget* parent = 0);
   ~MainWindow();
   void paintEvent(QPaintEvent *event);
+
  private:
   Ui::MainWindow* ui;
+
+  private slots:
+    void on_B_set_clicked();
+    void on_B_setreturn_clicked();
 };
 
 #endif  // MAINWINDOW_H
