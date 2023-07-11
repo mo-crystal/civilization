@@ -75,6 +75,11 @@ void MainWindow::on_B_set_clicked()
   ui->stackedWidget->setCurrentIndex(1);
 }
 
+void MainWindow::on_B_start_clicked()
+{
+  ui->stackedWidget->setCurrentIndex(2);
+}
+
 void MainWindow::on_B_setreturn_clicked()
 {
   ui->stackedWidget->setCurrentIndex(0);
