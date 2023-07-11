@@ -179,7 +179,7 @@
         </property>
         <property name="icon">
           <iconset>
-            <normaloff>./res/start/return_to_start.png.png</normaloff>./res/start/return_to_start.png.png
+            <normaloff>./res/start/return_to_start.png</normaloff>./res/start/return_to_start.png
           </iconset>
         </property>
         <property name="iconSize">
@@ -198,8 +198,8 @@
       <widget class="QLabel" name="voice_bar_label">
         <property name="geometry">
           <rect>
-            <x>80</x>
-            <y>90</y>
+            <x>90</x>
+            <y>100</y>
             <width>70</width>
             <height>40</height>
           </rect>
@@ -215,7 +215,7 @@
         <property name="geometry">
         <rect>
           <x>100</x>
-          <y>130</y>
+          <y>135</y>
           <width>760</width>
           <height>40</height>
         </rect>
@@ -227,7 +227,6 @@
         <string notr="true">
           QSlider::groove:horizontal {
             image: url(./res/start/voice_bar.png);
-            height: 18px; 
           }
 
           QSlider::handle:horizontal {

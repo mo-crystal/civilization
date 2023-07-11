@@ -79,3 +79,8 @@ void MainWindow::on_B_setreturn_clicked()
 {
   ui->stackedWidget->setCurrentIndex(0);
 }
+
+void MainWindow::on_B_quit_clicked()
+{
+  this->close();
+}

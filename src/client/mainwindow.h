@@ -28,6 +28,7 @@ class MainWindow : public QMainWindow {
   private slots:
     void on_B_set_clicked();
     void on_B_setreturn_clicked();
+    void on_B_quit_clicked();
 };
 
 #endif  // MAINWINDOW_H
