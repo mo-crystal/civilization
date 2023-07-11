@@ -1,9 +1,11 @@
+#define NO_PLAYER 0
+
 class Construct
 {
 private:
   int x, y;
   bool blockable = false;
-  int ownerID = 0;
+  int ownerID = NO_PLAYER;
 
 public:
   Construct();

@@ -10,7 +10,7 @@ private:
   Item bag[BAG_VOLUME];
 
 public:
-  Player(int _id,Point _location);
+  Player(int _id, Point _location);
   ~Player();
-  
+  int GetID() { return ID; }
 };
