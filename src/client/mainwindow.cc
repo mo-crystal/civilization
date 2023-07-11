@@ -68,6 +68,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::paintEvent(QPaintEvent *event)
 {
+  
 }
 
 void MainWindow::on_B_set_clicked()

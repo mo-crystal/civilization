@@ -3,33 +3,37 @@
 
 #include <QMainWindow>
 #include <QPainter>
-#include<QMovie>
+#include <QMovie>
 
+#include "game.h"
 
 #define DEFUALT_WIDTH 960
 #define DEFUALT_HEIGHT 640
-#define START_PAGE_BUTTON_WIDTH DEFUALT_WIDTH/6
+#define START_PAGE_BUTTON_WIDTH DEFUALT_WIDTH / 6
 
-namespace Ui {
-class MainWindow;
+namespace Ui
+{
+  class MainWindow;
 }
 
-class MainWindow : public QMainWindow {
+class MainWindow : public QMainWindow
+{
   Q_OBJECT
 
- public:
-  explicit MainWindow(QWidget* parent = 0);
+public:
+  explicit MainWindow(QWidget *parent = 0);
   ~MainWindow();
   void paintEvent(QPaintEvent *event);
 
- private:
-  Ui::MainWindow* ui;
+private:
+  Ui::MainWindow *ui;
+  Game g;
 
-  private slots:
-    void on_B_set_clicked();
-    void on_B_start_clicked();
-    void on_B_setreturn_clicked();
-    void on_B_quit_clicked();
+private slots:
+  void on_B_set_clicked();
+  void on_B_start_clicked();
+  void on_B_setreturn_clicked();
+  void on_B_quit_clicked();
 };
 
-#endif  // MAINWINDOW_H
+#endif // MAINWINDOW_H
