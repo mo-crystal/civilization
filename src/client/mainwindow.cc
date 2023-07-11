@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
   ui->setupUi(this);
 
+  REFRESH = startTimer(16);
   // 封面动画载入
   QMovie *movie = new QMovie("./res/start/start.gif");
   ui->start_movie->setMovie(movie);
@@ -59,6 +60,12 @@ MainWindow::MainWindow(QWidget *parent)
       "background-repeat: no-repeat;"
       "background-position: center center;"
       "}");
+
+  // 玩家初始化（目前不正规）
+  Player *p = new Player(1, Point(MAP_WIDTH * BLOCK_SIZE / 2, MAP_HEIGHT * BLOCK_SIZE / 2));
+  this->g.SetPlayer(p);
+
+  
 }
 
 MainWindow::~MainWindow()
@@ -66,9 +73,32 @@ MainWindow::~MainWindow()
   delete ui;
 }
 
+void MainWindow::timerEvent(QTimerEvent *event)
+{
+  if (event->timerId() == REFRESH)
+  {
+    repaint();
+  }
+}
 void MainWindow::paintEvent(QPaintEvent *event)
 {
-  
+  Player player = this->g.GetPlayer();
+  Point player_location = player.GetLocation();
+  int left_top_x = player_location.GetX() - DEFUALT_WIDTH / 2;
+  int left_top_y = player_location.GetY() - DEFUALT_HEIGHT / 2;
+  int block_x = left_top_x / BLOCK_SIZE;
+  int block_y = left_top_y / BLOCK_SIZE;
+  int start_x = -(left_top_x % BLOCK_SIZE);
+  int start_y = -(left_top_y % BLOCK_SIZE);
+  QPainter painter(this);
+  for (int i = 0; i <= DEFUALT_WIDTH / BLOCK_SIZE; i++)
+  {
+    for (int j = 0; j <= DEFUALT_HEIGHT / BLOCK_SIZE; j++)
+    {
+      QPixmap p_ground("./res/game/ground.png");
+      painter.drawPixmap(start_x + i * BLOCK_SIZE, start_y + j * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, p_ground);
+    }
+  }
 }
 
 void MainWindow::on_B_set_clicked()
@@ -78,7 +108,7 @@ void MainWindow::on_B_set_clicked()
 
 void MainWindow::on_B_start_clicked()
 {
-  ui->stackedWidget->setCurrentIndex(2);
+  ui->stackedWidget->setVisible(0);
 }
 
 void MainWindow::on_B_setreturn_clicked()

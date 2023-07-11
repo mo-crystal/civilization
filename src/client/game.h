@@ -12,6 +12,7 @@ private:
   Construct *gameMap[MAP_WIDTH][MAP_HEIGHT];
   std::list<Player *> playerList;
   int myID = NO_PLAYER;
+  Player *me = NULL;
 
 public:
   Game();
@@ -20,5 +21,5 @@ public:
   void SetPlayer(Player *p);
   bool AddPlayer(Player *p);
   Construct *GetConstruct(int x, int y);
-  Player GetPlayer() { return this->p; }
+  Player GetPlayer() { return *(this->me); }
 };

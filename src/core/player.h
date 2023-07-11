@@ -13,4 +13,5 @@ public:
   Player(int _id, Point _location);
   ~Player();
   int GetID() { return ID; }
+  Point GetLocation() { return Creature::GetLocation(); }
 };
