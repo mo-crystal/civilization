@@ -20,7 +20,7 @@ private:
 public:
   Game();
   ~Game();
-  void DecorateInit(int block_size);
+  std::map<Point,int> DecorateInit(int block_size);
   void SetMap() {}
   void SetPlayer(Player *p);
   bool AddPlayer(Player *p);

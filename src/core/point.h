@@ -13,4 +13,5 @@ public:
   void SetY(double _y) { this->y = _y; }
   bool operator<(const Point &other) const { return this->x < other.x && this->y < other.y; }
   bool operator>(const Point &other) const { return this->x > other.x && this->y > other.y; }
+  bool operator==(const Point &other) const { return this->x == other.x && this->y == other.y; }
 };

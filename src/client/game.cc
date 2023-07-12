@@ -8,9 +8,10 @@ Game::~Game()
 {
 }
 
-void Game::DecorateInit(int block_size)
+std::map<Point,int> Game::DecorateInit(int block_size)
 {
   srand(time(0));
+  this->decorates.insert(std::pair<Point, int>(Point(256*64/2, 256*64/2), rand() % 7));
   int size = rand() % (MAP_WIDTH * MAP_HEIGHT / 4) + MAP_WIDTH;
   for (int i = 0; i < size; i++)
   {
@@ -22,7 +23,7 @@ void Game::DecorateInit(int block_size)
     }
     this->decorates.insert(std::pair<Point, int>(Point(x, y), rand() % 7));
   }
-  this->decorates.insert(std::pair<Point, int>(Point(256*64/2, 256*64/2), rand() % 7));
+  return this->decorates;
 }
 
 void Game::SetPlayer(Player *p)

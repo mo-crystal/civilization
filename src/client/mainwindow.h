@@ -5,6 +5,7 @@
 #include <QPainter>
 #include <QMovie>
 #include <QDebug>
+#include<QMessageBox>
 
 #include "game.h"
 

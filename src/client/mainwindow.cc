@@ -60,8 +60,8 @@ MainWindow::MainWindow(QWidget *parent)
       "background-repeat: no-repeat;"
       "background-position: center center;"
       "}");
-  //引擎初始化
-  g.DecorateInit(BLOCK_SIZE);
+  // 引擎初始化
+  std::map<Point, int> a = this->g.DecorateInit(BLOCK_SIZE);
   // 玩家初始化（目前不正规）
   Player *p = new Player(1, Point(MAP_WIDTH * BLOCK_SIZE / 2, MAP_HEIGHT * BLOCK_SIZE / 2));
   this->g.SetPlayer(p);
@@ -109,7 +109,6 @@ void MainWindow::paintEvent(QPaintEvent *event)
   {
     painter.drawPixmap((*i).first.GetX() - left_top_x, (*i).first.GetY() - left_top_y, *pix_decorate[(*i).second]);
   }
-  //painter.drawPixmap(player_location.GetX() - left_top_x, player_location.GetY() - left_top_y, *pix_decorate[3]);
 }
 
 void MainWindow::on_B_set_clicked()
