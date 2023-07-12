@@ -1,4 +1,5 @@
 #include <list>
+#include <map>
 
 #include "../core/construct.h"
 #include "../core/player.h"
@@ -13,10 +14,12 @@ private:
   std::list<Player *> playerList;
   int myID = NO_PLAYER;
   Player *me = NULL;
+  std::map<Point, int> decorates;
 
 public:
   Game();
   ~Game();
+  void DecorateInit(int block_size);
   void SetMap() {}
   void SetPlayer(Player *p);
   bool AddPlayer(Player *p);
