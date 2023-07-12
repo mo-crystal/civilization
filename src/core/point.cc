@@ -8,7 +8,8 @@ Point::~Point()
 {
 }
 
-Point::Point(double _x,double _y){
-  this->x=_x;
-  this->y=_y;
+Point::Point(double _x, double _y)
+{
+  this->x = _x;
+  this->y = _y;
 }

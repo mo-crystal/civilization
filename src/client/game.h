@@ -1,5 +1,6 @@
 #include <list>
 #include <map>
+#include <ctime>
 
 #include "../core/construct.h"
 #include "../core/player.h"
@@ -23,6 +24,7 @@ public:
   void SetMap() {}
   void SetPlayer(Player *p);
   bool AddPlayer(Player *p);
+  std::map<Point, int> GetDecorate(Point left_top, Point right_down);
   Construct *GetConstruct(int x, int y);
   Player GetPlayer() { return *(this->me); }
 };

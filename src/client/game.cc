@@ -20,8 +20,9 @@ void Game::DecorateInit(int block_size)
     {
       continue;
     }
-    this->decorates.insert(Point(x, y), rand() % 7);
+    this->decorates.insert(std::pair<Point, int>(Point(x, y), rand() % 7));
   }
+  this->decorates.insert(std::pair<Point, int>(Point(256*64/2, 256*64/2), rand() % 7));
 }
 
 void Game::SetPlayer(Player *p)
@@ -38,6 +39,19 @@ bool Game::AddPlayer(Player *p)
   // TODO:判断重复
   this->playerList.push_back(p);
   return true;
+}
+
+std::map<Point, int> Game::GetDecorate(Point left_top, Point right_down)
+{
+  std::map<Point, int> res;
+  for (auto i = this->decorates.begin(); i != this->decorates.end(); i++)
+  {
+    if ((*i).first > left_top && (*i).first < right_down)
+    {
+      res.insert(*i);
+    }
+  }
+  return res;
 }
 
 Construct *Game::GetConstruct(int x, int y)

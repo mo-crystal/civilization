@@ -8,7 +8,7 @@ Game::~Game()
 {
 }
 
-bool Game::Load(std::string path = "")
+bool Game::Load(std::string path)
 {
   for (int i = 0; i < MAP_WIDTH; i++)
   {
@@ -23,7 +23,7 @@ bool Game::Load(std::string path = "")
 
 bool Game::Run()
 {
-  Player p(1, new Point(MAP_WIDTH / 2, MAP_HEIGHT / 2));
+  Player *p=new Player(1, Point(MAP_WIDTH / 2, MAP_HEIGHT / 2));
   this->AddPlayer(p);
   return true;
 }
