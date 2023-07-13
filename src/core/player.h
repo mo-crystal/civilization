@@ -14,4 +14,5 @@ public:
   ~Player();
   int GetID() { return ID; }
   Point GetLocation() { return Creature::GetLocation(); }
+  void Move(Point p);
 };

@@ -15,4 +15,5 @@ public:
   virtual bool TickAction() = 0;
   virtual bool Place() = 0;
   virtual bool Destory() = 0;
+  bool IsBlock() { return blockable; }
 };

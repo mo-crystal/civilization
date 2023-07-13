@@ -34,6 +34,7 @@ public:
   ~MainWindow();
   void paintEvent(QPaintEvent *event);
   void timerEvent(QTimerEvent *event);
+  void keyPressEvent(QKeyEvent *event);
 
 private:
   Ui::MainWindow *ui;
@@ -48,6 +49,7 @@ private:
   int ANIMATION_TIME;
   Animation building_cursor;
   std::vector<Animation> player_animation_list;
+
 private slots:
   void on_B_set_clicked();
   void on_B_start_clicked();

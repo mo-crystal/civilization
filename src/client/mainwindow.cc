@@ -6,6 +6,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
   ui->setupUi(this);
 
+  g.SetMapRange(BLOCK_SIZE);
+
   REFRESH = startTimer(16);
   building_cursor.SetTimerID(startTimer(200));
   building_cursor.AddState("show", "./res/game/build_cursor/build_cursor_%%.png", 0, 3);
@@ -195,4 +197,28 @@ void MainWindow::on_B_quit_clicked()
 void MainWindow::on_voiceSlider_valueChanged(int value)
 {
   mediaPlayer->setVolume(value);
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+  if (event->key() == Qt::Key_W)
+  {
+    g.PlayerMove(g.GetPlayer().GetID(), UP);
+  }
+  else if (event->key() == Qt::Key_S)
+  {
+    g.PlayerMove(g.GetPlayer().GetID(), DOWN);
+  }
+  else if (event->key() == Qt::Key_A)
+  {
+    g.PlayerMove(g.GetPlayer().GetID(), LEFT);
+  }
+  else if (event->key() == Qt::Key_D)
+  {
+    g.PlayerMove(g.GetPlayer().GetID(), RIGHT);
+  }
+  else
+  {
+    // 处理其他按键事件
+  }
 }

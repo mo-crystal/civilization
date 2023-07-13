@@ -8,3 +8,8 @@ Player::Player(int _id, Point _location, int _speed) : Creature(_location, _spee
 Player::~Player()
 {
 }
+
+void Player::Move(Point p)
+{
+  this->SetLocation(p);
+}
