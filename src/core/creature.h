@@ -8,7 +8,7 @@ private:
 
 public:
   Creature();
-  Creature(Point _location);
+  Creature(Point _location,int _speed);
   ~Creature();
   Point GetLocation() { return location; }
 };

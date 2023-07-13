@@ -10,6 +10,7 @@
 #include <QMessageBox>
 #include <QMediaPlaylist>
 #include <QMediaPlayer>
+#include <QMouseEvent>
 
 #include "game.h"
 
@@ -41,7 +42,10 @@ private:
   bool is_playing = 0;
   QMediaPlayer *mediaPlayer;
   QMediaPlaylist *playlist;
-
+  QPoint mousePosition;
+  bool isbuilding = 1;
+  int current_build_cursor_frame = 0;
+  int ANIMATION_TIME;
 private slots:
   void on_B_set_clicked();
   void on_B_start_clicked();

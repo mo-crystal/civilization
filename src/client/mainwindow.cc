@@ -7,12 +7,11 @@ MainWindow::MainWindow(QWidget *parent)
   ui->setupUi(this);
 
   REFRESH = startTimer(16);
+  ANIMATION_TIME = startTimer(200);
 
   QPixmap cursorPixmap("./res/cursor.png");
   QCursor customCursor(cursorPixmap);
   setCursor(customCursor);
-
-  ui->voiceSlider->setRange(0,100);
 
   mediaPlayer = new QMediaPlayer(this);
   playlist = new QMediaPlaylist(this);
@@ -77,7 +76,7 @@ MainWindow::MainWindow(QWidget *parent)
   // 引擎初始化
   std::map<Point, int> a = this->g.DecorateInit(BLOCK_SIZE);
   // 玩家初始化（目前不正规）
-  Player *p = new Player(1, Point(MAP_WIDTH * BLOCK_SIZE / 2, MAP_HEIGHT * BLOCK_SIZE / 2));
+  Player *p = new Player(1, Point(MAP_WIDTH * BLOCK_SIZE / 2-32, MAP_HEIGHT * BLOCK_SIZE / 2-32));
   this->g.SetPlayer(p);
 }
 
@@ -90,9 +89,19 @@ void MainWindow::timerEvent(QTimerEvent *event)
 {
   if (event->timerId() == REFRESH)
   {
+    QPoint globalPos = QCursor::pos();
+    mousePosition = mapFromGlobal(globalPos);
     repaint();
   }
+  else if (event->timerId() == ANIMATION_TIME)
+  {
+    if (isbuilding)
+    {
+      current_build_cursor_frame = (current_build_cursor_frame + 1) % 4;
+    }
+  }
 }
+
 void MainWindow::paintEvent(QPaintEvent *event)
 {
   Player player = this->g.GetPlayer();
@@ -103,7 +112,10 @@ void MainWindow::paintEvent(QPaintEvent *event)
   int block_y = left_top_y / BLOCK_SIZE;
   int start_x = -(left_top_x % BLOCK_SIZE);
   int start_y = -(left_top_y % BLOCK_SIZE);
+  int player_block_location_x = player_location.GetX() / BLOCK_SIZE;
+  int player_block_location_y = player_location.GetY() / BLOCK_SIZE;
   QPainter painter(this);
+  // 画地板
   for (int i = 0; i <= DEFUALT_WIDTH / BLOCK_SIZE; i++)
   {
     for (int j = 0; j <= DEFUALT_HEIGHT / BLOCK_SIZE; j++)
@@ -112,6 +124,8 @@ void MainWindow::paintEvent(QPaintEvent *event)
       painter.drawPixmap(start_x + i * BLOCK_SIZE, start_y + j * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE, p_ground);
     }
   }
+
+  // 画装饰
   QPixmap *pix_decorate[7];
   for (int i = 0; i < 7; ++i)
   {
@@ -122,6 +136,18 @@ void MainWindow::paintEvent(QPaintEvent *event)
   for (auto i = decorates.begin(); i != decorates.end(); i++)
   {
     painter.drawPixmap((*i).first.GetX() - left_top_x, (*i).first.GetY() - left_top_y, DECORATE_SIZE * 2, DECORATE_SIZE * 2, *pix_decorate[(*i).second]);
+  }
+
+  // 画建筑选框
+  int cursor_block_location_x = (mousePosition.rx() + left_top_x) / BLOCK_SIZE;
+  int cursor_block_location_y = (mousePosition.ry() + left_top_y) / BLOCK_SIZE;
+  //QMessageBox::information(this, "", QString("%1,%2  %3,%4").arg(player_block_location_x).arg(player_block_location_y).arg(cursor_block_location_x).arg(cursor_block_location_y));
+  if (isbuilding && abs(player_block_location_x - cursor_block_location_x) < 5 && abs(player_block_location_y - cursor_block_location_y) < 5)
+  {
+    int b_x = cursor_block_location_x - block_x;
+    int b_y = cursor_block_location_y - block_y;
+    QPixmap *pix_building_cursor = new QPixmap(QString("./res/game/build_cursor/build_cursor_%1.png").arg(current_build_cursor_frame));
+    painter.drawPixmap(b_x * BLOCK_SIZE + start_x, b_y * BLOCK_SIZE + start_y, BLOCK_SIZE, BLOCK_SIZE, *pix_building_cursor);
   }
 }
 
@@ -146,6 +172,7 @@ void MainWindow::on_B_quit_clicked()
   this->close();
 }
 
-void MainWindow::on_voiceSlider_valueChanged(int value){
+void MainWindow::on_voiceSlider_valueChanged(int value)
+{
   mediaPlayer->setVolume(value);
 }
