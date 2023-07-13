@@ -7,6 +7,15 @@ MainWindow::MainWindow(QWidget *parent)
   ui->setupUi(this);
 
   REFRESH = startTimer(16);
+
+  QPixmap cursorPixmap("./res/cursor.png");
+
+  // 创建自定义鼠标样式对象
+  QCursor customCursor(cursorPixmap);
+
+  // 设置窗口内鼠标样式为自定义样式
+  setCursor(customCursor);
+
   // 封面动画载入
   QMovie *movie = new QMovie("./res/start/start.gif");
   ui->start_movie->setMovie(movie);
@@ -107,7 +116,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
   std::map<Point, int> decorates = this->g.GetDecorate(Point(left_top_x, left_top_y), Point(left_top_x + DEFUALT_WIDTH, left_top_y + DEFUALT_HEIGHT));
   for (auto i = decorates.begin(); i != decorates.end(); i++)
   {
-    painter.drawPixmap((*i).first.GetX() - left_top_x, (*i).first.GetY() - left_top_y, *pix_decorate[(*i).second]);
+    painter.drawPixmap((*i).first.GetX() - left_top_x, (*i).first.GetY() - left_top_y, DECORATE_SIZE * 2, DECORATE_SIZE * 2, *pix_decorate[(*i).second]);
   }
 }
 
@@ -118,6 +127,7 @@ void MainWindow::on_B_set_clicked()
 
 void MainWindow::on_B_start_clicked()
 {
+  this->is_playing = true;
   ui->stackedWidget->setVisible(0);
 }
 

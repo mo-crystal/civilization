@@ -1,11 +1,13 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <random>
+
 #include <QMainWindow>
 #include <QPainter>
 #include <QMovie>
 #include <QDebug>
-#include<QMessageBox>
+#include <QMessageBox>
 
 #include "game.h"
 
@@ -13,6 +15,7 @@
 #define DEFUALT_HEIGHT 640
 #define BLOCK_SIZE 64
 #define START_PAGE_BUTTON_WIDTH DEFUALT_WIDTH / 6
+#define DECORATE_SIZE 32
 
 namespace Ui
 {
@@ -33,6 +36,7 @@ private:
   Ui::MainWindow *ui;
   Game g;
   int REFRESH;
+  bool is_playing = 0;
 
 private slots:
   void on_B_set_clicked();
