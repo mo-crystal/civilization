@@ -4,6 +4,7 @@
 
 #include "../core/construct.h"
 #include "../core/player.h"
+#include "../core/animation.h"
 
 #define MAP_WIDTH 256
 #define MAP_HEIGHT 256
@@ -20,7 +21,7 @@ private:
 public:
   Game();
   ~Game();
-  std::map<Point,int> DecorateInit(int block_size);
+  std::map<Point, int> DecorateInit(int block_size);
   void SetMap() {}
   void SetPlayer(Player *p);
   bool AddPlayer(Player *p);

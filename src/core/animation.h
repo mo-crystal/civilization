@@ -11,11 +11,13 @@ private:
   std::string nowState = "";
 
 public:
-  Animation(int _timerID);
+  Animation();
   ~Animation();
-  void AddState(std::string state_name, std::vector < std::string >> paths);
-  void AddState(std::string state_name, std::string path,int start ,int end);
+  void SetTimerID(int _timerID) { this->timerID = _timerID; }
+  void AddState(std::string state_name, std::vector<std::string> paths);
+  void AddState(std::string state_name, std::string path, int start, int end);
   void NextFrame();
   void SetState(std::string _state);
-  void GetNowFrame() { return this->state[this->nowState][nowFrame]; }
+  int GetTimerID() { return this->timerID; }
+  std::string GetNowFrame() { return this->state[this->nowState][nowFrame]; }
 };

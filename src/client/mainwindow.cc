@@ -7,7 +7,9 @@ MainWindow::MainWindow(QWidget *parent)
   ui->setupUi(this);
 
   REFRESH = startTimer(16);
-  ANIMATION_TIME = startTimer(200);
+  building_cursor.SetTimerID(startTimer(200));
+  building_cursor.AddState("show", "./res/game/build_cursor/build_cursor_%%.png",0,3);
+
 
   QPixmap cursorPixmap("./res/cursor.png");
   QCursor customCursor(cursorPixmap);
@@ -76,7 +78,7 @@ MainWindow::MainWindow(QWidget *parent)
   // 引擎初始化
   std::map<Point, int> a = this->g.DecorateInit(BLOCK_SIZE);
   // 玩家初始化（目前不正规）
-  Player *p = new Player(1, Point(MAP_WIDTH * BLOCK_SIZE / 2-32, MAP_HEIGHT * BLOCK_SIZE / 2-32));
+  Player *p = new Player(1, Point(MAP_WIDTH * BLOCK_SIZE / 2 - 32, MAP_HEIGHT * BLOCK_SIZE / 2 - 32));
   this->g.SetPlayer(p);
 }
 
@@ -93,11 +95,11 @@ void MainWindow::timerEvent(QTimerEvent *event)
     mousePosition = mapFromGlobal(globalPos);
     repaint();
   }
-  else if (event->timerId() == ANIMATION_TIME)
+  else if (event->timerId() == building_cursor.GetTimerID())
   {
     if (isbuilding)
     {
-      current_build_cursor_frame = (current_build_cursor_frame + 1) % 4;
+      building_cursor.NextFrame();
     }
   }
 }
@@ -141,12 +143,12 @@ void MainWindow::paintEvent(QPaintEvent *event)
   // 画建筑选框
   int cursor_block_location_x = (mousePosition.rx() + left_top_x) / BLOCK_SIZE;
   int cursor_block_location_y = (mousePosition.ry() + left_top_y) / BLOCK_SIZE;
-  //QMessageBox::information(this, "", QString("%1,%2  %3,%4").arg(player_block_location_x).arg(player_block_location_y).arg(cursor_block_location_x).arg(cursor_block_location_y));
+  // QMessageBox::information(this, "", QString("%1,%2  %3,%4").arg(player_block_location_x).arg(player_block_location_y).arg(cursor_block_location_x).arg(cursor_block_location_y));
   if (isbuilding && abs(player_block_location_x - cursor_block_location_x) < 5 && abs(player_block_location_y - cursor_block_location_y) < 5)
   {
     int b_x = cursor_block_location_x - block_x;
     int b_y = cursor_block_location_y - block_y;
-    QPixmap *pix_building_cursor = new QPixmap(QString("./res/game/build_cursor/build_cursor_%1.png").arg(current_build_cursor_frame));
+    QPixmap *pix_building_cursor = new QPixmap(QString::fromStdString(building_cursor.GetNowFrame()));
     painter.drawPixmap(b_x * BLOCK_SIZE + start_x, b_y * BLOCK_SIZE + start_y, BLOCK_SIZE, BLOCK_SIZE, *pix_building_cursor);
   }
 }
