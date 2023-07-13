@@ -8,6 +8,7 @@ target("mocvserver")
 
 target("mocvclient")
     add_rules("qt.widgetapp")
+    add_frameworks("QtMultimedia")
     add_headerfiles("src/client/*.h")
     add_files("src/client/*.cc")
     add_files("src/core/*.cc")

@@ -8,6 +8,8 @@
 #include <QMovie>
 #include <QDebug>
 #include <QMessageBox>
+#include <QMediaPlaylist>
+#include <QMediaPlayer>
 
 #include "game.h"
 
@@ -37,12 +39,15 @@ private:
   Game g;
   int REFRESH;
   bool is_playing = 0;
+  QMediaPlayer *mediaPlayer;
+  QMediaPlaylist *playlist;
 
 private slots:
   void on_B_set_clicked();
   void on_B_start_clicked();
   void on_B_setreturn_clicked();
   void on_B_quit_clicked();
+  void on_voiceSlider_valueChanged(int value);
 };
 
 #endif // MAINWINDOW_H

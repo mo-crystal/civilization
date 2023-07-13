@@ -9,13 +9,18 @@ MainWindow::MainWindow(QWidget *parent)
   REFRESH = startTimer(16);
 
   QPixmap cursorPixmap("./res/cursor.png");
-
-  // 创建自定义鼠标样式对象
   QCursor customCursor(cursorPixmap);
-
-  // 设置窗口内鼠标样式为自定义样式
   setCursor(customCursor);
 
+  ui->voiceSlider->setRange(0,100);
+
+  mediaPlayer = new QMediaPlayer(this);
+  playlist = new QMediaPlaylist(this);
+  playlist->addMedia(QUrl::fromLocalFile("./res/music/bgm.mp3"));
+  playlist->setPlaybackMode(QMediaPlaylist::Loop); // 设置循环播放模式
+  mediaPlayer->setPlaylist(playlist);
+  mediaPlayer->setVolume(50);
+  mediaPlayer->play();
   // 封面动画载入
   QMovie *movie = new QMovie("./res/start/start.gif");
   ui->start_movie->setMovie(movie);
@@ -139,4 +144,8 @@ void MainWindow::on_B_setreturn_clicked()
 void MainWindow::on_B_quit_clicked()
 {
   this->close();
+}
+
+void MainWindow::on_voiceSlider_valueChanged(int value){
+  mediaPlayer->setVolume(value);
 }
