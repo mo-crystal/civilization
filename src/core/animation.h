@@ -1,7 +1,7 @@
 #include <map>
 #include <vector>
 #include <iostream>
-
+// TODO :帧与帧之间可控制间隔
 class Animation
 {
 private:
@@ -20,4 +20,5 @@ public:
   void SetState(std::string _state);
   int GetTimerID() { return this->timerID; }
   std::string GetNowFrame() { return this->state[this->nowState][nowFrame]; }
+  std::string GetState() { return this->nowState; }
 };

@@ -22,7 +22,9 @@ public:
   Game();
   ~Game();
   std::map<Point, int> DecorateInit(int block_size);
-  void SetMap() {}
+  void SetMap()
+  { /*TODO:与服务器建立连接后初始化*/
+  }
   void SetPlayer(Player *p);
   bool AddPlayer(Player *p);
   std::map<Point, int> GetDecorate(Point left_top, Point right_down);

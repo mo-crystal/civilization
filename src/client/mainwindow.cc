@@ -8,8 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
 
   REFRESH = startTimer(16);
   building_cursor.SetTimerID(startTimer(200));
-  building_cursor.AddState("show", "./res/game/build_cursor/build_cursor_%%.png",0,3);
-
+  building_cursor.AddState("show", "./res/game/build_cursor/build_cursor_%%.png", 0, 3);
 
   QPixmap cursorPixmap("./res/cursor.png");
   QCursor customCursor(cursorPixmap);
@@ -22,11 +21,13 @@ MainWindow::MainWindow(QWidget *parent)
   mediaPlayer->setPlaylist(playlist);
   mediaPlayer->setVolume(50);
   mediaPlayer->play();
+
   // 封面动画载入
   QMovie *movie = new QMovie("./res/start/start.gif");
   ui->start_movie->setMovie(movie);
   ui->setting_movie->setMovie(movie);
   movie->start();
+
   // 开始界面按钮初始化
   QPixmap *pix_button = new QPixmap("./res/start/button_background.png");
   ui->button_background->setPixmap(*pix_button);
@@ -75,11 +76,17 @@ MainWindow::MainWindow(QWidget *parent)
       "background-repeat: no-repeat;"
       "background-position: center center;"
       "}");
+
   // 引擎初始化
   std::map<Point, int> a = this->g.DecorateInit(BLOCK_SIZE);
+
   // 玩家初始化（目前不正规）
   Player *p = new Player(1, Point(MAP_WIDTH * BLOCK_SIZE / 2 - 32, MAP_HEIGHT * BLOCK_SIZE / 2 - 32));
   this->g.SetPlayer(p);
+  Animation this_player;
+  this_player.SetTimerID(startTimer(150));
+  this_player.AddState("idle", "./res/game/c1/c1_idel/c1_idel (%%).png", 1, 8);
+  this->player_animation_list.push_back(this_player);
 }
 
 MainWindow::~MainWindow()
@@ -100,6 +107,13 @@ void MainWindow::timerEvent(QTimerEvent *event)
     if (isbuilding)
     {
       building_cursor.NextFrame();
+    }
+  }
+  for (int i = 0; i < this->player_animation_list.size(); i++)
+  {
+    if (event->timerId() == player_animation_list[i].GetTimerID())
+    {
+      player_animation_list[i].NextFrame();
     }
   }
 }
@@ -151,6 +165,10 @@ void MainWindow::paintEvent(QPaintEvent *event)
     QPixmap *pix_building_cursor = new QPixmap(QString::fromStdString(building_cursor.GetNowFrame()));
     painter.drawPixmap(b_x * BLOCK_SIZE + start_x, b_y * BLOCK_SIZE + start_y, BLOCK_SIZE, BLOCK_SIZE, *pix_building_cursor);
   }
+
+  // 画玩家(本机)
+  QPixmap *pix_this_player = new QPixmap(QString::fromStdString(player_animation_list[0].GetNowFrame()));
+  painter.drawPixmap(player.GetLocation().GetX() - left_top_x - BLOCK_SIZE / 2, player.GetLocation().GetY() - left_top_y - BLOCK_SIZE / 2, BLOCK_SIZE, BLOCK_SIZE, *pix_this_player);
 }
 
 void MainWindow::on_B_set_clicked()
