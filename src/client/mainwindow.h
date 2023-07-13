@@ -56,6 +56,7 @@ private slots:
   void on_B_setreturn_clicked();
   void on_B_quit_clicked();
   void on_voiceSlider_valueChanged(int value);
+  void on_B_pause_clicked();
 };
 
 #endif // MAINWINDOW_H

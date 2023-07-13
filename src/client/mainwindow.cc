@@ -5,7 +5,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow)
 {
   ui->setupUi(this);
-
+  ui->stackedWidget->setStyleSheet("background-color: transparent;");
   g.SetMapRange(BLOCK_SIZE);
 
   REFRESH = startTimer(16);
@@ -180,8 +180,9 @@ void MainWindow::on_B_set_clicked()
 
 void MainWindow::on_B_start_clicked()
 {
+  ui->stackedWidget->setCurrentIndex(2);
+  // ui->stackedWidget->setVisible(0);
   this->is_playing = true;
-  ui->stackedWidget->setVisible(0);
 }
 
 void MainWindow::on_B_setreturn_clicked()
@@ -221,4 +222,10 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
   {
     // 处理其他按键事件
   }
+}
+
+void MainWindow::on_B_pause_clicked()
+{
+  //后期可制作游戏内设置界面
+  ui->stackedWidget->setCurrentIndex(0);
 }
