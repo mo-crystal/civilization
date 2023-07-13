@@ -8,7 +8,7 @@ class Player : public Creature
 private:
   int ID = -1;
   Item bag[BAG_VOLUME];
-
+  
 public:
   Player(int _id, Point _location, int _speed = 10);
   ~Player();
