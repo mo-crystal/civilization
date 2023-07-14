@@ -1,9 +1,10 @@
 #include "creature.h"
+#include "animation.h"
 #include "item.h"
 
 #define BAG_VOLUME 48
 
-class Player : public Creature
+class Player : public Creature, public Animation
 {
 private:
   int ID = -1;

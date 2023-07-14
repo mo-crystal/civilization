@@ -19,7 +19,6 @@
 
 #include "../core/construct.h"
 #include "../core/player.h"
-#include "../core/animation.h"
 
 #define DEFUALT_WIDTH 960
 #define DEFUALT_HEIGHT 640
@@ -68,7 +67,7 @@ private:
   std::map<Point, int> decorates;
   int map_x_min = 0, map_y_min = 0, map_x_max = 0, map_y_max = 0;
   int REFRESH;
-  bool is_playing = 0;
+  bool is_playing = false;
   QMediaPlayer *mediaPlayer;
   QMediaPlaylist *playlist;
   QPoint mousePosition;
@@ -76,7 +75,6 @@ private:
   int current_build_cursor_frame = 0;
   int ANIMATION_TIME;
   Animation building_cursor;
-  std::vector<Animation> player_animation_list;
   QTimer *pressTimer;
 
 private slots:

@@ -37,11 +37,9 @@ MainWindow::MainWindow(QWidget *parent)
   // 玩家初始化（目前不正规）
   Player *p = new Player(1, Point(MAP_WIDTH * BLOCK_SIZE / 2 - 32, MAP_HEIGHT * BLOCK_SIZE / 2 - 32));
   this->SetPlayer(p);
-  Animation this_player;
-  this_player.SetTimerID(startTimer(150));
-  this_player.AddState("idle", "./res/game/c1/c1_idel/c1_idel (%%).png", 1, 8);
-  this_player.AddState("walk", "./res/game/c1/c1_walk/c1_walk (%%).png", 1, 8);
-  this->player_animation_list.push_back(this_player);
+  p->SetTimerID(startTimer(150));
+  p->AddState("idle", "./res/game/c1/c1_idel/c1_idel (%%).png", 1, 8);
+  p->AddState("walk", "./res/game/c1/c1_walk/c1_walk (%%).png", 1, 8);
 }
 
 MainWindow::~MainWindow()
@@ -64,11 +62,11 @@ void MainWindow::timerEvent(QTimerEvent *event)
       building_cursor.NextFrame();
     }
   }
-  for (int i = 0; i < this->player_animation_list.size(); i++)
+  for (auto it = playerList.begin(); it != playerList.end(); it++)
   {
-    if (event->timerId() == player_animation_list[i].GetTimerID())
+    if (event->timerId() == (*it)->GetTimerID())
     {
-      player_animation_list[i].NextFrame();
+      (*it)->NextFrame();
     }
   }
 }
@@ -112,7 +110,6 @@ void MainWindow::paintEvent(QPaintEvent *event)
   // 画建筑选框
   int cursor_block_location_x = (mousePosition.rx() + left_top_x) / BLOCK_SIZE;
   int cursor_block_location_y = (mousePosition.ry() + left_top_y) / BLOCK_SIZE;
-  // QMessageBox::information(this, "", QString("%1,%2  %3,%4").arg(player_block_location_x).arg(player_block_location_y).arg(cursor_block_location_x).arg(cursor_block_location_y));
   if (isbuilding && abs(player_block_location_x - cursor_block_location_x) < 5 && abs(player_block_location_y - cursor_block_location_y) < 5)
   {
     int b_x = cursor_block_location_x - block_x;
@@ -122,7 +119,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
   }
 
   // 画玩家(本机)
-  QImage *image_this_player = new QImage(QString::fromStdString(player_animation_list[0].GetNowFrame()));
+  QImage *image_this_player = new QImage(QString::fromStdString(player.GetNowFrame()));
   painter.drawPixmap(player.GetLocation().GetX() - left_top_x - BLOCK_SIZE / 2, player.GetLocation().GetY() - left_top_y - BLOCK_SIZE / 2, BLOCK_SIZE, BLOCK_SIZE, QPixmap::fromImage(image_this_player->mirrored(player.GetTowardsHorizontal(), false)));
 }
 
@@ -193,7 +190,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     {
       pressTimer->stop();
     }
-    this->player_animation_list[0].SetState("walk");
+    this->me->SetState("walk");
     PlayerMove(this->me->GetID(), UP);
   }
   else if (event->key() == Qt::Key_S)
@@ -202,7 +199,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     {
       pressTimer->stop();
     }
-    this->player_animation_list[0].SetState("walk");
+    this->me->SetState("walk");
     PlayerMove(this->me->GetID(), DOWN);
   }
   else if (event->key() == Qt::Key_A)
@@ -211,7 +208,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     {
       pressTimer->stop();
     }
-    this->player_animation_list[0].SetState("walk");
+    this->me->SetState("walk");
     PlayerMove(this->me->GetID(), LEFT);
   }
   else if (event->key() == Qt::Key_D)
@@ -220,7 +217,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     {
       pressTimer->stop();
     }
-    this->player_animation_list[0].SetState("walk");
+    this->me->SetState("walk");
     PlayerMove(this->me->GetID(), RIGHT);
   }
   else if (event->key() == Qt::Key_B)
@@ -235,7 +232,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
 void MainWindow::handleDelayedKeyRelease()
 {
-  this->player_animation_list[0].SetState("idle");
+  this->me->SetState("idle");
 }
 
 void MainWindow::Init()

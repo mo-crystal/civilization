@@ -19,6 +19,7 @@ void Animation::AddState(std::string state_name, std::vector<std::string> paths)
     }
   }
 }
+
 void Animation::AddState(std::string state_name, std::string path, int start, int end)
 {
   if (this->state.find(state_name) == this->state.end())
