@@ -37,48 +37,6 @@ MainWindow::MainWindow(QWidget *parent)
   QPixmap *pix_setting_background = new QPixmap("./res/start/setting_background.png");
   ui->setting_background->setPixmap(*pix_setting_background);
 
-  ui->B_start->setStyleSheet(
-      "QPushButton{"
-      "background-color: rgb(255, 255, 255,0);"
-      "background-image: url(./res/start/start.png);"
-      "background-repeat: no-repeat;"
-      "background-position: center center;"
-      "}"
-      "QPushButton:hover{"
-      "background-color: rgb(255, 255, 255,0);"
-      "background-image: url(./res/start/start_selected.png);"
-      "background-repeat: no-repeat;"
-      "background-position: center center;"
-      "}");
-
-  ui->B_set->setStyleSheet(
-      "QPushButton{"
-      "background-color: rgb(255, 255, 255,0);"
-      "background-image: url(./res/start/set.png);"
-      "background-repeat: no-repeat;"
-      "background-position: center center;"
-      "}"
-      "QPushButton:hover{"
-      "background-color: rgb(255, 255, 255,0);"
-      "background-image: url(./res/start/set_selected.png);"
-      "background-repeat: no-repeat;"
-      "background-position: center center;"
-      "}");
-
-  ui->B_quit->setStyleSheet(
-      "QPushButton{"
-      "background-color: rgb(255, 255, 255,0);"
-      "background-image: url(./res/start/quit.png);"
-      "background-repeat: no-repeat;"
-      "background-position: center center;"
-      "}"
-      "QPushButton:hover{"
-      "background-color: rgb(255, 255, 255,0);"
-      "background-image: url(./res/start/quit_selected.png);"
-      "background-repeat: no-repeat;"
-      "background-position: center center;"
-      "}");
-
   // 引擎初始化
   std::map<Point, int> a = this->g.DecorateInit(BLOCK_SIZE);
 
@@ -88,6 +46,7 @@ MainWindow::MainWindow(QWidget *parent)
   Animation this_player;
   this_player.SetTimerID(startTimer(150));
   this_player.AddState("idle", "./res/game/c1/c1_idel/c1_idel (%%).png", 1, 8);
+  this_player.AddState("walk","./res/game/c1/c1_walk/c1_walk (%%).png", 1, 8);
   this->player_animation_list.push_back(this_player);
 }
 
@@ -169,8 +128,8 @@ void MainWindow::paintEvent(QPaintEvent *event)
   }
 
   // 画玩家(本机)
-  QPixmap *pix_this_player = new QPixmap(QString::fromStdString(player_animation_list[0].GetNowFrame()));
-  painter.drawPixmap(player.GetLocation().GetX() - left_top_x - BLOCK_SIZE / 2, player.GetLocation().GetY() - left_top_y - BLOCK_SIZE / 2, BLOCK_SIZE, BLOCK_SIZE, *pix_this_player);
+  QImage *image_this_player = new QImage(QString::fromStdString(player_animation_list[0].GetNowFrame()));
+  painter.drawPixmap(player.GetLocation().GetX() - left_top_x - BLOCK_SIZE / 2, player.GetLocation().GetY() - left_top_y - BLOCK_SIZE / 2, BLOCK_SIZE, BLOCK_SIZE, QPixmap::fromImage(image_this_player->mirrored(player.GetTowardsHorizontal(),false)));
 }
 
 void MainWindow::on_B_set_clicked()
@@ -204,18 +163,22 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 {
   if (event->key() == Qt::Key_W)
   {
+    this->player_animation_list[0].SetState("walk");
     g.PlayerMove(g.GetPlayer().GetID(), UP);
   }
   else if (event->key() == Qt::Key_S)
   {
+    this->player_animation_list[0].SetState("walk");
     g.PlayerMove(g.GetPlayer().GetID(), DOWN);
   }
   else if (event->key() == Qt::Key_A)
   {
+    this->player_animation_list[0].SetState("walk");
     g.PlayerMove(g.GetPlayer().GetID(), LEFT);
   }
   else if (event->key() == Qt::Key_D)
   {
+    this->player_animation_list[0].SetState("walk");
     g.PlayerMove(g.GetPlayer().GetID(), RIGHT);
   }
   else
@@ -226,6 +189,18 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 
 void MainWindow::on_B_pause_clicked()
 {
-  //后期可制作游戏内设置界面
+  // 后期可制作游戏内设置界面
   ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_voice_check_stateChanged(int state)
+{
+  if (state == Qt::Checked)
+  {
+    mediaPlayer->stop();
+  }
+  else if (state == Qt::Unchecked)
+  {
+    mediaPlayer->play();
+  }
 }

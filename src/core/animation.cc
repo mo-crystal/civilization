@@ -56,6 +56,10 @@ void Animation::SetState(std::string _state)
 {
   if (this->state.find(_state) != this->state.end())
   {
+    if (this->nowState == _state)
+    {
+      return;
+    }
     this->nowFrame = 0;
     this->nowState = _state;
   }

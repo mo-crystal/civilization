@@ -100,6 +100,7 @@ void Game::PlayerMove(int playerID, int direction)
         if (new_p.GetX() >= map_x_min && !Block((*it)->GetLocation(), new_p))
         {
           (*it)->Move(new_p);
+          (*it)->SetTowardsHorizontal(true);
         }
       }
       else if (direction == RIGHT)
@@ -108,6 +109,7 @@ void Game::PlayerMove(int playerID, int direction)
         if (new_p.GetX() < map_x_max && !Block((*it)->GetLocation(), new_p))
         {
           (*it)->Move(new_p);
+          (*it)->SetTowardsHorizontal(false);
         }
       }
       else
