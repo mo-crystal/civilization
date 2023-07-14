@@ -34,13 +34,6 @@ MainWindow::MainWindow(QWidget *parent)
   ui->setting_movie->setMovie(movie);
   movie->start();
 
-  // 开始界面按钮初始化
-  QPixmap *pix_button = new QPixmap("./res/start/button_background.png");
-  ui->button_background->setPixmap(*pix_button);
-
-  QPixmap *pix_setting_background = new QPixmap("./res/start/setting_background.png");
-  ui->setting_background->setPixmap(*pix_setting_background);
-
   // 引擎初始化
   std::map<Point, int> a = this->g.DecorateInit(BLOCK_SIZE);
 
@@ -232,6 +225,9 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     }
     this->player_animation_list[0].SetState("walk");
     g.PlayerMove(g.GetPlayer().GetID(), RIGHT);
+  }
+  else if (event->key() == Qt::Key_B){
+    this->isbuilding=!this->isbuilding;
   }
   else
   {

@@ -78,7 +78,8 @@
       <bool>true</bool>
      </property>
      <property name="styleSheet">
-      <string notr="true"> background-color: rgb(255, 255, 255,0);</string>
+      <string notr="true"> background-color: rgb(255, 255, 255,0);
+background-image: url(&quot;./res/start/button_background.png&quot;);</string>
      </property>
     </widget>
     <widget class="QLabel" name="label">
@@ -231,7 +232,8 @@
       <bool>true</bool>
      </property>
      <property name="styleSheet">
-      <string notr="true"> background-color: rgb(255, 255, 255,0);</string>
+      <string notr="true"> background-color: rgb(255, 255, 255,0);
+background-image: url(&quot;./res/start/setting_background.png&quot;);</string>
      </property>
     </widget>
     <widget class="QPushButton" name="B_setreturn">
