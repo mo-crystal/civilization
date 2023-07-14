@@ -9,6 +9,7 @@ class Player : public Creature, public Animation
 private:
   int ID = -1;
   Item bag[BAG_VOLUME];
+  std::string name = "";
 
 public:
   Player(int _id, Point _location, int _speed = 5);

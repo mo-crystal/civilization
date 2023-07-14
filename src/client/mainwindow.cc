@@ -94,6 +94,17 @@ void MainWindow::paintEvent(QPaintEvent *event)
     }
   }
 
+  // 画建筑选框
+  int cursor_block_location_x = (mousePosition.rx() + left_top_x) / BLOCK_SIZE;
+  int cursor_block_location_y = (mousePosition.ry() + left_top_y) / BLOCK_SIZE;
+  if (isbuilding && abs(player_block_location_x - cursor_block_location_x) < 5 && abs(player_block_location_y - cursor_block_location_y) < 5)
+  {
+    int b_x = cursor_block_location_x - block_x;
+    int b_y = cursor_block_location_y - block_y;
+    QPixmap *pix_building_cursor = new QPixmap(QString::fromStdString(building_cursor.GetNowFrame()));
+    painter.drawPixmap(b_x * BLOCK_SIZE + start_x, b_y * BLOCK_SIZE + start_y, BLOCK_SIZE, BLOCK_SIZE, *pix_building_cursor);
+  }
+
   // 画装饰
   QPixmap *pix_decorate[7];
   for (int i = 0; i < 7; ++i)
@@ -105,17 +116,6 @@ void MainWindow::paintEvent(QPaintEvent *event)
   for (auto i = decorates.begin(); i != decorates.end(); i++)
   {
     painter.drawPixmap((*i).first.GetX() - left_top_x, (*i).first.GetY() - left_top_y, DECORATE_SIZE * 2, DECORATE_SIZE * 2, *pix_decorate[(*i).second]);
-  }
-
-  // 画建筑选框
-  int cursor_block_location_x = (mousePosition.rx() + left_top_x) / BLOCK_SIZE;
-  int cursor_block_location_y = (mousePosition.ry() + left_top_y) / BLOCK_SIZE;
-  if (isbuilding && abs(player_block_location_x - cursor_block_location_x) < 5 && abs(player_block_location_y - cursor_block_location_y) < 5)
-  {
-    int b_x = cursor_block_location_x - block_x;
-    int b_y = cursor_block_location_y - block_y;
-    QPixmap *pix_building_cursor = new QPixmap(QString::fromStdString(building_cursor.GetNowFrame()));
-    painter.drawPixmap(b_x * BLOCK_SIZE + start_x, b_y * BLOCK_SIZE + start_y, BLOCK_SIZE, BLOCK_SIZE, *pix_building_cursor);
   }
 
   // 画玩家(本机)
