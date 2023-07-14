@@ -11,6 +11,7 @@
 #include <QMediaPlaylist>
 #include <QMediaPlayer>
 #include <QMouseEvent>
+#include <QTimer>
 
 #include "game.h"
 
@@ -35,6 +36,8 @@ public:
   void paintEvent(QPaintEvent *event);
   void timerEvent(QTimerEvent *event);
   void keyPressEvent(QKeyEvent *event);
+  void keyReleaseEvent(QKeyEvent *event);
+  void handleDelayedKeyRelease();
 
 private:
   Ui::MainWindow *ui;
@@ -49,6 +52,7 @@ private:
   int ANIMATION_TIME;
   Animation building_cursor;
   std::vector<Animation> player_animation_list;
+  QTimer *pressTimer;
 
 private slots:
   void on_B_set_clicked();

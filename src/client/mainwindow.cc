@@ -8,6 +8,10 @@ MainWindow::MainWindow(QWidget *parent)
   ui->stackedWidget->setStyleSheet("background-color: transparent;");
   g.SetMapRange(BLOCK_SIZE);
 
+  pressTimer = new QTimer(this);
+  pressTimer->setSingleShot(true);
+  connect(pressTimer, &QTimer::timeout, this, &handleDelayedKeyRelease);
+
   REFRESH = startTimer(16);
   building_cursor.SetTimerID(startTimer(200));
   building_cursor.AddState("show", "./res/game/build_cursor/build_cursor_%%.png", 0, 3);
@@ -46,7 +50,7 @@ MainWindow::MainWindow(QWidget *parent)
   Animation this_player;
   this_player.SetTimerID(startTimer(150));
   this_player.AddState("idle", "./res/game/c1/c1_idel/c1_idel (%%).png", 1, 8);
-  this_player.AddState("walk","./res/game/c1/c1_walk/c1_walk (%%).png", 1, 8);
+  this_player.AddState("walk", "./res/game/c1/c1_walk/c1_walk (%%).png", 1, 8);
   this->player_animation_list.push_back(this_player);
 }
 
@@ -129,7 +133,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
 
   // 画玩家(本机)
   QImage *image_this_player = new QImage(QString::fromStdString(player_animation_list[0].GetNowFrame()));
-  painter.drawPixmap(player.GetLocation().GetX() - left_top_x - BLOCK_SIZE / 2, player.GetLocation().GetY() - left_top_y - BLOCK_SIZE / 2, BLOCK_SIZE, BLOCK_SIZE, QPixmap::fromImage(image_this_player->mirrored(player.GetTowardsHorizontal(),false)));
+  painter.drawPixmap(player.GetLocation().GetX() - left_top_x - BLOCK_SIZE / 2, player.GetLocation().GetY() - left_top_y - BLOCK_SIZE / 2, BLOCK_SIZE, BLOCK_SIZE, QPixmap::fromImage(image_this_player->mirrored(player.GetTowardsHorizontal(), false)));
 }
 
 void MainWindow::on_B_set_clicked()
@@ -159,34 +163,6 @@ void MainWindow::on_voiceSlider_valueChanged(int value)
   mediaPlayer->setVolume(value);
 }
 
-void MainWindow::keyPressEvent(QKeyEvent *event)
-{
-  if (event->key() == Qt::Key_W)
-  {
-    this->player_animation_list[0].SetState("walk");
-    g.PlayerMove(g.GetPlayer().GetID(), UP);
-  }
-  else if (event->key() == Qt::Key_S)
-  {
-    this->player_animation_list[0].SetState("walk");
-    g.PlayerMove(g.GetPlayer().GetID(), DOWN);
-  }
-  else if (event->key() == Qt::Key_A)
-  {
-    this->player_animation_list[0].SetState("walk");
-    g.PlayerMove(g.GetPlayer().GetID(), LEFT);
-  }
-  else if (event->key() == Qt::Key_D)
-  {
-    this->player_animation_list[0].SetState("walk");
-    g.PlayerMove(g.GetPlayer().GetID(), RIGHT);
-  }
-  else
-  {
-    // 处理其他按键事件
-  }
-}
-
 void MainWindow::on_B_pause_clicked()
 {
   // 后期可制作游戏内设置界面
@@ -203,4 +179,67 @@ void MainWindow::on_voice_check_stateChanged(int state)
   {
     mediaPlayer->play();
   }
+}
+
+void MainWindow::keyReleaseEvent(QKeyEvent *event)
+{
+  if (event->key() == Qt::Key_W || event->key() == Qt::Key_A || event->key() == Qt::Key_D || event->key() == Qt::Key_S)
+  {
+    if (!pressTimer->isActive())
+    {
+      pressTimer->start(100);
+    }
+  }
+  else
+  {
+  }
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+  if (event->key() == Qt::Key_W)
+  {
+    if (pressTimer->isActive())
+    {
+      pressTimer->stop();
+    }
+    this->player_animation_list[0].SetState("walk");
+    g.PlayerMove(g.GetPlayer().GetID(), UP);
+  }
+  else if (event->key() == Qt::Key_S)
+  {
+    if (pressTimer->isActive())
+    {
+      pressTimer->stop();
+    }
+    this->player_animation_list[0].SetState("walk");
+    g.PlayerMove(g.GetPlayer().GetID(), DOWN);
+  }
+  else if (event->key() == Qt::Key_A)
+  {
+    if (pressTimer->isActive())
+    {
+      pressTimer->stop();
+    }
+    this->player_animation_list[0].SetState("walk");
+    g.PlayerMove(g.GetPlayer().GetID(), LEFT);
+  }
+  else if (event->key() == Qt::Key_D)
+  {
+    if (pressTimer->isActive())
+    {
+      pressTimer->stop();
+    }
+    this->player_animation_list[0].SetState("walk");
+    g.PlayerMove(g.GetPlayer().GetID(), RIGHT);
+  }
+  else
+  {
+    // 处理其他按键事件
+  }
+}
+
+void MainWindow::handleDelayedKeyRelease()
+{
+  this->player_animation_list[0].SetState("idle");
 }
