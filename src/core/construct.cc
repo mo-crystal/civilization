@@ -11,6 +11,16 @@ Construct::Construct(int _x, int _y, bool _blockable)
   this->blockable = _blockable;
 }
 
+bool Construct::SetOwnerID(int ID)
+{
+  if (this->ownerID == 0)
+  {
+    this->ownerID = ID;
+    return true;
+  }
+  return false;
+}
+
 Construct::~Construct()
 {
 }
